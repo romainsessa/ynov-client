@@ -1,6 +1,6 @@
 package com.ynov.client.model;
 
-public class InternalUser {
+public class ApiUser {
 
 	private String username;
 	private String password;

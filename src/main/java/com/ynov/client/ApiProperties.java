@@ -10,8 +10,6 @@ public class ApiProperties {
 	private String url; 
 	// sera associé au prefix + nom de l'attribut donc com.ynov.productApi.publicurl
 	private String publicurl;
-	// je n'utilise pas cette variable avec le fichier application.properties
-	private String token;
 	
 	public String getUrl() {
 		return url;
@@ -29,11 +27,4 @@ public class ApiProperties {
 		this.publicurl = publicurl;
 	}
 	
-	public String getToken() {
-		return token;
-	}
-	
-	public void setToken(String token) {
-		this.token = token;
-	}
 }

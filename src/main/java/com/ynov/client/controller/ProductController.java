@@ -11,30 +11,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ynov.client.TokenContext;
 import com.ynov.client.model.Product;
 import com.ynov.client.service.ProductService;
 
 @Controller
+@RequestMapping("private")
 public class ProductController {
 
 	@Autowired
 	private ProductService productService;
 	
-	@Autowired
-	private TokenContext tokenContext;
-	
 	@GetMapping("/products")
 	public String productsPage(Model model, HttpSession session) {
-		if (tokenContext.getToken() == null) {
-			return "unauthorized";
-		} else {
-			List<Product> products = productService.getProducts();
-			model.addAttribute("products", products);
-			return "products";
-		}
+		List<Product> products = productService.getProducts();
+		model.addAttribute("products", products);
+		return "products";
 	}
 	
 	@GetMapping("/products/{id}")
