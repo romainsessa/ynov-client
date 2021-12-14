@@ -34,5 +34,12 @@ public class PublicController {
 		return "logged";
 	}
 	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		tokenContext.setToken(null);
+		session.invalidate();
+		return "logout";
+	}
+	
 	
 }

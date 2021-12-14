@@ -13,16 +13,16 @@ public class ProductService {
 	@Autowired
 	private ProductProxy productProxy;
 	
-	public List<Product> getProducts(String token) {
-		return productProxy.getProducts(token);
+	public List<Product> getProducts() {
+		return productProxy.getProducts();
 	}
 
-	public Product getProductById(Integer id, String token) {
-		return productProxy.getProductById(id, token);
+	public Product getProductById(Integer id) {
+		return productProxy.getProductById(id);
 	}
 
-	public void save(Product product, String token) {
-		productProxy.save(product, token);		
+	public void save(Product product) {
+		productProxy.save(product);		
 	}
 	
 }

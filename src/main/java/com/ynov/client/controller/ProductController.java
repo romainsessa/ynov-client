@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ynov.client.TokenContext;
 import com.ynov.client.model.Product;
 import com.ynov.client.service.ProductService;
 
@@ -22,30 +23,30 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired
+	private TokenContext tokenContext;
+	
 	@GetMapping("/products")
 	public String productsPage(Model model, HttpSession session) {
-		String token = (String) session.getAttribute("token");
-		if (token == null) {
+		if (tokenContext.getToken() == null) {
 			return "unauthorized";
 		} else {
-			List<Product> products = productService.getProducts(token);
+			List<Product> products = productService.getProducts();
 			model.addAttribute("products", products);
 			return "products";
 		}
 	}
 	
 	@GetMapping("/products/{id}")
-	public String productPage(@PathVariable(name = "id") Integer id, Model model, HttpSession session) {
-		String token = (String) session.getAttribute("token");
-		Product product = productService.getProductById(id, token);
+	public String productPage(@PathVariable(name = "id") Integer id, Model model) {
+		Product product = productService.getProductById(id);
 		model.addAttribute("product", product);
 		return "product";
 	}
 	
 	@PostMapping("/products")
-	public ModelAndView createNewProduct(@ModelAttribute Product product, HttpSession session) {
-		String token = (String) session.getAttribute("token");
-		productService.save(product, token);
+	public ModelAndView createNewProduct(@ModelAttribute Product product) {
+		productService.save(product);
 		return new ModelAndView("redirect:/products");
 	}
 	
