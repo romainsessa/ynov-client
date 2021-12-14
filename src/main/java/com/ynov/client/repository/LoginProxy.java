@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
 import com.ynov.client.ApiProperties;
+import com.ynov.client.TokenContext;
 import com.ynov.client.model.InternalUser;
 
 @Repository
@@ -17,7 +18,7 @@ public class LoginProxy {
 	@Autowired
 	private ApiProperties props;
 	
-	public void login(InternalUser user) {
+	public String login(InternalUser user) {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		HttpEntity<InternalUser> request = 
@@ -38,6 +39,8 @@ public class LoginProxy {
 		
 		// Ajout du token dans la classe ApiProperties, comme ça il sera accessible dans les autres proxy.
 		props.setToken(token);
+		
+		return token;
 	}
 	
 }

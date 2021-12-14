@@ -12,8 +12,8 @@ public class LoginService {
 	@Autowired
 	private LoginProxy loginProxy;
 	
-	public void login(InternalUser user) {
-		loginProxy.login(user);
+	public String login(InternalUser user) {
+		return loginProxy.login(user);
 	}
 	
 }
