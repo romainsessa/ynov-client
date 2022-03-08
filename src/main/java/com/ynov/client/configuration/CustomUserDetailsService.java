@@ -24,15 +24,17 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// 1) Authenticate client with API
-		ApiUser apiUser = new ApiUser();
+		// IF TOKEN AUTH IS ENABLED ON API
+		// 1) Authenticate client app with API
+		/*ApiUser apiUser = new ApiUser();
 		apiUser.setUsername("user");
 		apiUser.setPassword("user");
-		loginService.login(apiUser);
+		loginService.login(apiUser);*/
 		
-		// 2) Authenticate user with client creating an inMemory user
+		// COULD BE CHANGE BY LOADING A USER FROM DB
+		// 2) Authenticate web user with client creating an inMemory user
 		User webUser = new User(
-				"romain", 
+				username, 
 				new BCryptPasswordEncoder().encode("romain"),
 				getGrantedAuthorities());
 		return webUser;

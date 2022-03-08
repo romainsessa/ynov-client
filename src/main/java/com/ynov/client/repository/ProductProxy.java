@@ -25,8 +25,11 @@ public class ProductProxy {
 	@Autowired
 	private TokenContext tokenContext;
 	
+	// Attention, mauvaise pratique - juste pour simplifier le projet
+	private final String API_USERNAME = "romain";
+	private final String API_PASSWORD = "password";
+	
 	// Création d'un header pour la méthode Basic Auth 
-	@SuppressWarnings("unused")
 	private HttpHeaders createBasicAuthHeaders(String username, String password){
 		return new HttpHeaders() {
 			private static final long serialVersionUID = 1L;
@@ -61,7 +64,7 @@ public class ProductProxy {
 				restTemplate.exchange(
 						props.getUrl() + "/product", 
 						HttpMethod.GET, 
-						new HttpEntity<>(createTokenHeaders()), 
+						new HttpEntity<>(createBasicAuthHeaders(API_USERNAME,API_PASSWORD)), 
 						new ParameterizedTypeReference<List<Product>>() {}
 					);
 		return response.getBody();
@@ -74,7 +77,7 @@ public class ProductProxy {
 				restTemplate.exchange(
 						props.getUrl() + "/product/" + id, 
 						HttpMethod.GET, 
-						new HttpEntity<>(createTokenHeaders()), 
+						new HttpEntity<>(createBasicAuthHeaders(API_USERNAME,API_PASSWORD)), 
 						Product.class);
 		return response.getBody();
 	}
@@ -82,7 +85,7 @@ public class ProductProxy {
 	public void save(Product product) {
 		RestTemplate restTemplate = new RestTemplate();
 		
-		HttpEntity<Product> request = new HttpEntity<Product>(product, createTokenHeaders());
+		HttpEntity<Product> request = new HttpEntity<Product>(product, createBasicAuthHeaders(API_USERNAME,API_PASSWORD));
 		
 		restTemplate.exchange(
 				props.getUrl() + "/product",

@@ -15,7 +15,11 @@ public class LoginService {
 	
 	@Autowired
 	private LoginProxy loginProxy;
-	
+
+	/**
+	 * User for token authentication
+	 * @param user
+	 */
 	public void login(ApiUser user) {
 		String token = loginProxy.login(user);
 		tokenContext.setToken(token);

@@ -41,7 +41,7 @@ public class ProductController {
 	@PostMapping("/products")
 	public ModelAndView createNewProduct(@ModelAttribute Product product) {
 		productService.save(product);
-		return new ModelAndView("redirect:/products");
+		return new ModelAndView("redirect:/private/products");
 	}
 	
 	@GetMapping("/newProduct")
